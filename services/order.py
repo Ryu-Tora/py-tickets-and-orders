@@ -4,6 +4,7 @@ from db.models import Ticket, Order, User
 from django.db.models import QuerySet
 from django.contrib.auth import get_user_model
 
+
 def create_order(
         tickets: list[dict], username: str, date: str = None
 ) -> None:
@@ -13,7 +14,9 @@ def create_order(
 
             order_data = {"user": user}
             if date:
-                order_data["created_at"] = datetime.datetime.strptime(date, "%Y-%m-%d %H:%M")
+                order_data["created_at"] = datetime.datetime.strptime(
+                    date, "%Y-%m-%d %H:%M"
+                )
             order = Order.objects.create(**order_data)
 
             ticket_obj = []
@@ -29,6 +32,7 @@ def create_order(
 
     except Exception as e:
         raise e
+
 
 def get_orders(username: str = None) -> QuerySet:
     if username:
